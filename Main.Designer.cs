@@ -1,4 +1,4 @@
-﻿namespace async_parrallel_sample
+﻿namespace AsyncParrallelSample
 {
     partial class Main
     {
@@ -28,13 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.txtBox_RunTasks = new System.Windows.Forms.TextBox();
+            this.SuspendLayout();
+            // 
+            // txtBox_RunTasks
+            // 
+            this.txtBox_RunTasks.Location = new System.Drawing.Point(73, 12);
+            this.txtBox_RunTasks.Name = "txtBox_RunTasks";
+            this.txtBox_RunTasks.Size = new System.Drawing.Size(87, 19);
+            this.txtBox_RunTasks.TabIndex = 0;
+            // 
+            // Main
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Form1";
+            this.ClientSize = new System.Drawing.Size(539, 450);
+            this.Controls.Add(this.txtBox_RunTasks);
+            this.Name = "Main";
+            this.Text = "Async Parrallel Sample App";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
+
+        private System.Windows.Forms.TextBox txtBox_RunTasks;
     }
 }
 

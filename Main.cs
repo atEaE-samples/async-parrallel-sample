@@ -7,14 +7,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AsyncParrallelSample.ViewModel;
+using AsyncParrallelSample.View;
 
-namespace async_parrallel_sample
+namespace AsyncParrallelSample
 {
     public partial class Main : Form
     {
+        /// <summary>
+        /// Main view model instance.
+        /// </summary>
+        private MainViewModel viewModel;
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public Main()
         {
+            viewModel = new MainViewModel();
             InitializeComponent();
+            SetupComponent();
+        }
+
+        protected void SetupComponent()
+        {
+            txtBox_RunTasks.BindText(viewModel, nameof(MainViewModel.RunTasks));
         }
     }
 }

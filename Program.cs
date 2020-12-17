@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace async_parrallel_sample
+namespace AsyncParrallelSample
 {
     static class Program
     {
