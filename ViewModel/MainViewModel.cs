@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 namespace AsyncParrallelSample.ViewModel
 {
@@ -22,24 +17,64 @@ namespace AsyncParrallelSample.ViewModel
         /// Execute property change function.
         /// </summary>
         /// <param name="propertyName"></param>
-        protected virtual void OnPropertyChanged(string propertyName)
+        protected virtual void NotifyPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
 
-        private string runTasks = "hogehgoe";
+        /// <summary>
+        /// runTasks total.
+        /// </summary>
+        private string runTasks = "400";
+
+        /// <summary>
+        /// tasktime minsec.
+        /// </summary>
+        private string taskTime = "300";
+
+        /// <summary>
+        /// RunTasks total public.
+        /// </summary>
         public string RunTasks
         {
             get => runTasks;
             set
             {
-                if (runTasks == value)
+              if (runTasks == value)
                     return;
 
                 runTasks = value;
-                OnPropertyChanged(nameof(RunTasks));
+                NotifyPropertyChanged(nameof(RunTasks));
             }
+        }
+
+        /// <summary>
+        /// TaskTime public.
+        /// </summary>
+        public string TaskTime
+        {
+            get => taskTime;
+            set
+            {
+                if (taskTime == value)
+                    return;
+
+                taskTime = value;
+                NotifyPropertyChanged(nameof(TaskTime));
+            }
+        }
+
+        /// <summary>
+        /// start button command.
+        /// </summary>
+        public Command StartCommand { get; private set; }
+
+        /// <summary>
+        /// Create new instance.
+        /// </summary>
+        public MainViewModel()
+        {
         }
     }
 }

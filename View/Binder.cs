@@ -1,21 +1,81 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Reflection;
+﻿using AsyncParrallelSample.ViewModel;
 using System.Windows.Forms;
 
 namespace AsyncParrallelSample.View
 {
-    public static class Binder
+    /// <summary>
+    /// Binder Utility class.(Base)
+    /// </summary>
+    public static partial class Binder
     {
-        public static void Bind<T>(Control controller, string propertyName, T bindObject, string bindPropertyName)
+        /// <summary>
+        /// data binding.
+        /// </summary>
+        /// <typeparam name="T">biding object</typeparam>
+        /// <param name="controller">Form controller</param>
+        /// <param name="propertyName">Controller propertyName</param>
+        /// <param name="bindObject">Binding object</param>
+        /// <param name="bindPropertyName">Binding object propertyName</param>
+        private static void bindModel<T>(Control controller, string propertyName, T bindObject, string bindPropertyName)
         {
             controller.DataBindings.Add(propertyName, bindObject, bindPropertyName, true, DataSourceUpdateMode.OnPropertyChanged);
         }
+    }
 
-        public static void BindText<T>(this TextBox txtBox, T bindObject, string bindPropertyName)
+    /// <summary>
+    /// Binder Utility class.(TextBox)
+    /// </summary>
+    public static partial class Binder
+    {
+        /// <summary>
+        /// data binding.
+        /// </summary>
+        /// <typeparam name="T">biding object</typeparam>
+        /// <param name="txtBox">TextBox controller</param>
+        /// <param name="propertyName">Controller propertyName</param>
+        /// <param name="bindObject">Binding object</param>
+        /// <param name="bindPropertyName">Binding object propertyName</param>
+        public static void Bind<T>(this TextBox txtBox, string propertyName, T bindObject, string bindPropertyName)
         {
-            Bind(txtBox, nameof(TextBox.Text), bindObject, bindPropertyName);       
+            bindModel(txtBox, propertyName, bindObject, bindPropertyName);
+        }
+    }
+
+    /// <summary>
+    /// Binder Utility class.(Panel)
+    /// </summary>
+    public static partial class Binder
+    {
+        /// <summary>
+        /// data binding.
+        /// </summary>
+        /// <typeparam name="T">biding object</typeparam>
+        /// <param name="panel">Panel</param>
+        /// <param name="propertyName">Controller propertyName</param>
+        /// <param name="bindObject">Binding object</param>
+        /// <param name="bindPropertyName">Binding object propertyName</param>
+        public static void Bind<T>(this Panel panel, string propertyName, T bindObject, string bindPropertyName)
+        {
+            bindModel(panel, propertyName, bindObject, bindPropertyName);
+        }
+    }
+
+    /// <summary>
+    /// Binder Utility class.
+    /// </summary>
+    public static partial class Binder
+    {
+        /// <summary>
+        /// data binding.
+        /// </summary>
+        /// <typeparam name="T">biding object</typeparam>
+        /// <param name="panel">Panel</param>
+        /// <param name="propertyName">Controller propertyName</param>
+        /// <param name="bindObject">Binding object</param>
+        /// <param name="bindPropertyName">Binding object propertyName</param>
+        public static void Bind(this Button button, Command command)
+        {
+            button.Click += command.Execute;
         }
     }
 }
