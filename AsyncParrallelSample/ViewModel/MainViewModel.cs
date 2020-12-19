@@ -156,7 +156,7 @@ namespace AsyncParrallelSample.ViewModel
         public MainViewModel()
         {
             var runTasks = int.Parse(RunTasks);
-            panelModels = Enumerable.Range(1, runTasks).Select(_ => new PanelViewModel(0, 0, 1, 1) { Height = 7, Width = 7 }).ToList();
+            panelModels = Enumerable.Range(1, runTasks).Select(_ => new PanelViewModel(height: 7, width: 7).Padding(0, 0, 1, 1)).ToList();
             TaskSelectSource = new List<Command>()
             {
                 new Command("Sample1", workerThreadType1){ Description = "このサンプルは、各タスクを並列実行せず 『 ForEach 』 を使用して順番に実行するタスクです。" },

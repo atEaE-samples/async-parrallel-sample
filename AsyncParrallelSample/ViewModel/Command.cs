@@ -32,7 +32,7 @@ namespace AsyncParrallelSample.ViewModel
         /// <summary>
         /// Command description.
         /// </summary>
-        public string Description { get; set; }
+        public string Description { get; set; } = string.Empty;
 
         /// <summary>
         /// Execute function.
