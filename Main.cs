@@ -55,12 +55,15 @@ namespace AsyncParrallelSample
             txtBox_TaskTime.Bind(nameof(TextBox.Text), viewModel, nameof(MainViewModel.TaskTime));
             txtBox_ErrorRate.Bind(nameof(TextBox.Text), viewModel, nameof(MainViewModel.ErrorRate));
 
+            
+
             // button
             btn_Start.Bind(viewModel.StartCommand);
 
             // combobox
             cmb_TaskSelectBox.DataSource = viewModel.TaskSelectSource;
             cmb_TaskSelectBox.Bind(nameof(ComboBox.SelectedIndex), viewModel, nameof(MainViewModel.SelectedWorkerIndex));
+            textBox1.Bind(nameof(TextBox.Text), viewModel, nameof(MainViewModel.CurrentSelectedWorkerDescription));
         }
     }
 }

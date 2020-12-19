@@ -106,7 +106,28 @@ namespace AsyncParrallelSample.ViewModel
                 if (selectedWorkerIndex == value)
                     return;
                 selectedWorkerIndex = value;
+                CurrentSelectedWorkerDescription = TaskSelectSource[selectedWorkerIndex].Description;
                 NotifyPropertyChanged(nameof(SelectedWorkerIndex));
+            }
+        }
+
+        /// <summary>
+        /// Current selected workerthread description
+        /// </summary>
+        private string currentSelectedWorkerDescription;
+
+        /// <summary>
+        /// Current selected workerthread description public.
+        /// </summary>
+        public string CurrentSelectedWorkerDescription
+        {
+            get => currentSelectedWorkerDescription;
+            set
+            {
+                if (currentSelectedWorkerDescription == value)
+                    return;
+                currentSelectedWorkerDescription = value;
+                NotifyPropertyChanged(nameof(CurrentSelectedWorkerDescription));
             }
         }
 
@@ -138,9 +159,11 @@ namespace AsyncParrallelSample.ViewModel
             panelModels = Enumerable.Range(1, runTasks).Select(_ => new PanelViewModel(0, 0, 1, 1) { Height = 7, Width = 7 }).ToList();
             TaskSelectSource = new List<Command>()
             {
-                new Command("Sample1", workerThreadType1),
-                new Command("Sample2", workerThreadType2),
+                new Command("Sample1", workerThreadType1){ Description = "Description1" },
+                new Command("Sample2", workerThreadType2){ Description = "Description2" },
             };
+
+            currentSelectedWorkerDescription = TaskSelectSource[SelectedWorkerIndex].Description;
 
             StartCommand = new Command(onStart);
         }

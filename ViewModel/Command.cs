@@ -30,6 +30,11 @@ namespace AsyncParrallelSample.ViewModel
         public string Name { get; private set; } = nameof(Command);
 
         /// <summary>
+        /// Command description.
+        /// </summary>
+        public string Description { get; set; }
+
+        /// <summary>
         /// Execute function.
         /// </summary>
         private Action execute;
