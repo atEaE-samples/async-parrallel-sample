@@ -1,12 +1,15 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using System.ComponentModel.Extensions;
 using System.Drawing;
+using System.Threading;
 
 namespace AsyncParrallelSample.ViewModel
 {
     /// <summary>
-    /// 
+    /// Panel view models.
     /// </summary>
-    public class PanelModel : INotifyPropertyChanged
+    public class PanelViewModel : INotifyPropertyChanged
     {
         #region INotifiyPropertyChanged
 
@@ -33,14 +36,14 @@ namespace AsyncParrallelSample.ViewModel
         /// <summary>
         /// Create new instance.
         /// </summary>
-        public PanelModel()
+        public PanelViewModel()
         { }
 
         /// <summary>
         /// Create new instance.
         /// </summary>
         /// <param name="all">all</param>
-        public PanelModel(int all)
+        public PanelViewModel(int all)
         {
             Padding(all);
         }
@@ -52,7 +55,7 @@ namespace AsyncParrallelSample.ViewModel
         /// <param name="top">top</param>
         /// <param name="right">right</param>
         /// <param name="bottom">bottom</param>
-        public PanelModel(int left, int top, int right, int bottom)
+        public PanelViewModel(int left, int top, int right, int bottom)
         {
             Padding(left, top, right, bottom);
         }
@@ -87,6 +90,10 @@ namespace AsyncParrallelSample.ViewModel
         /// </summary>
         public int PaddingRight { get; private set; } = 0;
 
+        /// <summary>
+        /// check panel finish status error.
+        /// </summary>
+        public bool IsError { get; private set; } = false;
 
         /// <summary>
         /// Panel color.
@@ -99,7 +106,7 @@ namespace AsyncParrallelSample.ViewModel
         public Color Color
         {
             get { return color; }
-            set
+            private set
             {
                 if (color == value)
                     return;
@@ -107,14 +114,6 @@ namespace AsyncParrallelSample.ViewModel
                 color = value;
                 ColorChangedDelegate?.Invoke(value);
             }
-        }
-
-        /// <summary>
-        /// Panel check.
-        /// </summary>
-        public void Check()
-        {
-            Color = Color.Red;
         }
 
         /// <summary>
@@ -139,6 +138,45 @@ namespace AsyncParrallelSample.ViewModel
         public void Padding(int all)
         {
             Padding(all, all, all, all);
+        }
+
+        /// <summary>
+        /// Pending panel.
+        /// </summary>
+        public void JobPending(int taskTimeSeed)
+        {
+            var random = new Random();
+            Color = Color.DodgerBlue;
+            Thread.Sleep(random.Next(taskTimeSeed));           
+        }
+
+        /// <summary>
+        /// Running panel.
+        /// </summary>
+        public void JobRunning(int taskTimeSeed, int errorRate)
+        {
+            var random = new Random();
+            Color = Color.Yellow;
+            Thread.Sleep(random.Next(taskTimeSeed));
+
+            // Simple probability determination
+            if (random.Next(100) < errorRate)
+                IsError = true;
+        }
+
+        /// <summary>
+        /// Finishing panel.
+        /// </summary>
+        public void JobFinishing()
+        {
+            if (IsError)
+            {
+                Color = Color.Red;
+            }
+            else
+            {
+                Color = Color.Lime;
+            }
         }
     }
 }

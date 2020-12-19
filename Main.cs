@@ -1,8 +1,6 @@
 ﻿using AsyncParrallelSample.View;
 using AsyncParrallelSample.ViewModel;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace AsyncParrallelSample
@@ -13,11 +11,6 @@ namespace AsyncParrallelSample
         /// Main view model instance.
         /// </summary>
         private MainViewModel viewModel;
-
-        /// <summary>
-        /// Panel view model instance.
-        /// </summary>
-        private List<PanelModel> panelViewModel = new List<PanelModel>();
 
         /// <summary>
         /// Constructor
@@ -36,10 +29,9 @@ namespace AsyncParrallelSample
         /// </summary>
         protected void SetupComponent()
         {
-            panelViewModel = Enumerable.Range(1, 100).Select(_ =>
+            var cnt = 0;
+            foreach(var pm in viewModel.PanelViewModels)
             {
-                var pm = new PanelModel(0, 0, 1, 1) { Height = 7, Width = 7 };
-
                 var panel = new Panel()
                 {
                     Size = new Size(pm.Height, pm.Width),
@@ -48,9 +40,9 @@ namespace AsyncParrallelSample
                     BackColor = Color.LightGray,
                 };
                 flowLayoutPanel.Controls.Add(panel);
-                pm.ColorChangedDelegate = (c) => { panel.BackColor = c; };
-                return pm;
-            }).ToList();
+                viewModel.SetPanelViewModel(cnt, (c) => { panel.BackColor = c; });
+                cnt++;
+            }
         }
 
         /// <summary>
@@ -61,13 +53,10 @@ namespace AsyncParrallelSample
             // txtbox
             txtBox_RunTasks.Bind(nameof(TextBox.Text), viewModel, nameof(MainViewModel.RunTasks));
             txtBox_TaskTime.Bind(nameof(TextBox.Text), viewModel, nameof(MainViewModel.TaskTime));
+            txtBox_ErrorRate.Bind(nameof(TextBox.Text), viewModel, nameof(MainViewModel.ErrorRate));
 
             // button
-            //btn_Start.Bind(viewModel.StartCommand);
-
-            btn_Start.Click += (sender, args) => { panelViewModel.ForEach(p => p.Color = Color.Red);  };
-
-
+            btn_Start.Bind(viewModel.StartCommand);
         }
     }
 }
