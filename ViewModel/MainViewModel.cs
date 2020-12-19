@@ -31,7 +31,7 @@ namespace AsyncParrallelSample.ViewModel
         /// <summary>
         /// runTasks total.
         /// </summary>
-        private string runTasks = "400";
+        private string runTasks = "608";
 
         /// <summary>
         /// RunTasks total public.
@@ -134,7 +134,8 @@ namespace AsyncParrallelSample.ViewModel
         /// </summary>
         public MainViewModel()
         {
-            panelModels = Enumerable.Range(1, 600).Select(_ => new PanelViewModel(0, 0, 1, 1) { Height = 7, Width = 7 }).ToList();
+            var runTasks = int.Parse(RunTasks);
+            panelModels = Enumerable.Range(1, runTasks).Select(_ => new PanelViewModel(0, 0, 1, 1) { Height = 7, Width = 7 }).ToList();
             TaskSelectSource = new List<Command>()
             {
                 new Command("Sample1", workerThreadType1),
@@ -150,13 +151,16 @@ namespace AsyncParrallelSample.ViewModel
             cmd.Execute();
         }
 
+        /// <summary>
+        /// Foreach
+        /// </summary>
         private async void workerThreadType1()
         {
             var taskTime = int.Parse(TaskTime);
             var errorRate = int.Parse(ErrorRate);
             await Task.Run(() =>
             {
-                panelModels.AsParallel().ForAll((p) =>
+                panelModels.ForEach(p =>
                 {
                     p.JobPending(taskTime);
                     p.JobRunning(taskTime, errorRate);
@@ -165,13 +169,16 @@ namespace AsyncParrallelSample.ViewModel
             });
         }
 
+        /// <summary>
+        /// AsParallel ForAll 
+        /// </summary>
         private async void workerThreadType2()
         {
             var taskTime = int.Parse(TaskTime);
             var errorRate = int.Parse(ErrorRate);
             await Task.Run(() =>
             {
-                panelModels.ForEach(p =>
+                panelModels.AsParallel().ForAll((p) =>
                 {
                     p.JobPending(taskTime);
                     p.JobRunning(taskTime, errorRate);

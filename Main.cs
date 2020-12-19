@@ -58,6 +58,7 @@ namespace AsyncParrallelSample
             // button
             btn_Start.Bind(viewModel.StartCommand);
 
+            // combobox
             cmb_TaskSelectBox.DataSource = viewModel.TaskSelectSource;
             cmb_TaskSelectBox.Bind(nameof(ComboBox.SelectedIndex), viewModel, nameof(MainViewModel.SelectedWorkerIndex));
         }

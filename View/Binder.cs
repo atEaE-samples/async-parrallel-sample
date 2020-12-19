@@ -68,11 +68,8 @@ namespace AsyncParrallelSample.View
         /// <summary>
         /// data binding.
         /// </summary>
-        /// <typeparam name="T">biding object</typeparam>
-        /// <param name="panel">Panel</param>
-        /// <param name="propertyName">Controller propertyName</param>
-        /// <param name="bindObject">Binding object</param>
-        /// <param name="bindPropertyName">Binding object propertyName</param>
+        /// <param name="button">Button</param>
+        /// <param name="command">bind command.</param>
         public static void Bind(this Button button, Command command)
         {
             button.Click += command.Execute;
