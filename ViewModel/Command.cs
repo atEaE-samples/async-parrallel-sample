@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ComponentModel;
 
 namespace AsyncParrallelSample.ViewModel
@@ -29,9 +25,25 @@ namespace AsyncParrallelSample.ViewModel
         #endregion
 
         /// <summary>
+        /// Commad name public.
+        /// </summary>
+        public string Name { get; private set; } = nameof(Command);
+
+        /// <summary>
         /// Execute function.
         /// </summary>
         private Action execute;
+
+        /// <summary>
+        /// Create new instance.
+        /// </summary>
+        /// <param name="name">commmand name.</param>
+        /// <param name="execute">execute function.</param>
+        public Command(string name, Action execute)
+        {
+            Name = name;
+            this.execute = execute;
+        }
 
         /// <summary>
         /// Create new instance.
@@ -45,11 +57,28 @@ namespace AsyncParrallelSample.ViewModel
         /// <summary>
         /// Execute function.
         /// </summary>
+        public void Execute()
+        {
+            execute?.Invoke();
+        }
+
+        /// <summary>
+        /// Execute function.
+        /// </summary>
         /// <param name="sender">event origin object</param>
         /// <param name="args">event args</param>
         public void Execute(object sender, EventArgs args)
         {
             execute?.Invoke();
+        }
+
+        /// <summary>
+        /// to string.
+        /// </summary>
+        /// <returns>name.</returns>
+        public override string ToString()
+        {
+            return Name;
         }
     }
 }

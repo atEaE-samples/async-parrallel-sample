@@ -78,4 +78,23 @@ namespace AsyncParrallelSample.View
             button.Click += command.Execute;
         }
     }
+
+    /// <summary>
+    /// Binder Utility class.
+    /// </summary>
+    public static partial class Binder
+    {
+        /// <summary>
+        /// data binding.
+        /// </summary>
+        /// <typeparam name="T">biding object</typeparam>
+        /// <param name="cmbBox">ComboBox</param>
+        /// <param name="propertyName">Controller propertyName</param>
+        /// <param name="bindObject">Binding object</param>
+        /// <param name="bindPropertyName">Binding object propertyName</param>
+        public static void Bind<T>(this ComboBox cmbBox, string propertyName, T bindObject, string bindPropertyName)
+        {
+            bindModel(cmbBox, propertyName, bindObject, bindPropertyName);
+        }
+    }
 }

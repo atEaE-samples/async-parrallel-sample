@@ -34,21 +34,6 @@ namespace AsyncParrallelSample.ViewModel
         private string runTasks = "400";
 
         /// <summary>
-        /// tasktime minsec.
-        /// </summary>
-        private string taskTime = "300";
-
-        /// <summary>
-        /// error rate.
-        /// </summary>
-        private string errorRate = "5";
-
-        /// <summary>
-        /// panelview model repository.
-        /// </summary>
-        private List<PanelViewModel> panelModels = new List<PanelViewModel>();
-
-        /// <summary>
         /// RunTasks total public.
         /// </summary>
         public string RunTasks
@@ -56,13 +41,18 @@ namespace AsyncParrallelSample.ViewModel
             get => runTasks;
             set
             {
-              if (runTasks == value)
+                if (runTasks == value)
                     return;
 
                 runTasks = value;
                 NotifyPropertyChanged(nameof(RunTasks));
             }
         }
+
+        /// <summary>
+        /// tasktime minsec.
+        /// </summary>
+        private string taskTime = "300";
 
         /// <summary>
         /// TaskTime public.
@@ -81,6 +71,11 @@ namespace AsyncParrallelSample.ViewModel
         }
 
         /// <summary>
+        /// error rate.
+        /// </summary>
+        private string errorRate = "5";
+
+        /// <summary>
         /// Error Rate public.
         /// </summary>
         public string ErrorRate
@@ -95,7 +90,34 @@ namespace AsyncParrallelSample.ViewModel
             }
         }
 
+        /// <summary>
+        /// Selected worker thread index.
+        /// </summary>
+        private int selectedWorkerIndex = 0;
+
+        /// <summary>
+        /// Selected worker thread index public.
+        /// </summary>
+        public int SelectedWorkerIndex
+        {
+            get => selectedWorkerIndex;
+            set
+            {
+                if (selectedWorkerIndex == value)
+                    return;
+                selectedWorkerIndex = value;
+                NotifyPropertyChanged(nameof(SelectedWorkerIndex));
+            }
+        }
+
+        /// <summary>
+        /// panelview model repository.
+        /// </summary>
+        private List<PanelViewModel> panelModels = new List<PanelViewModel>();
+
         public List<PanelViewModel> PanelViewModels { get => panelModels; }
+
+        public List<Command> TaskSelectSource;
 
         public void SetPanelViewModel(int index, NotifyPropertyChangedDelegate<Color> colorChangeDeleate)
         {
@@ -113,9 +135,19 @@ namespace AsyncParrallelSample.ViewModel
         public MainViewModel()
         {
             panelModels = Enumerable.Range(1, 600).Select(_ => new PanelViewModel(0, 0, 1, 1) { Height = 7, Width = 7 }).ToList();
-            var taskTime = int.Parse(TaskTime);
+            TaskSelectSource = new List<Command>()
+            {
+                new Command("Sample1", workerThreadType1),
+                new Command("Sample2", workerThreadType2),
+            };
 
-            StartCommand = new Command(workerThreadType1);
+            StartCommand = new Command(onStart);
+        }
+
+        private void onStart()
+        {
+            var cmd = TaskSelectSource[SelectedWorkerIndex];
+            cmd.Execute();
         }
 
         private async void workerThreadType1()
@@ -125,6 +157,21 @@ namespace AsyncParrallelSample.ViewModel
             await Task.Run(() =>
             {
                 panelModels.AsParallel().ForAll((p) =>
+                {
+                    p.JobPending(taskTime);
+                    p.JobRunning(taskTime, errorRate);
+                    p.JobFinishing();
+                });
+            });
+        }
+
+        private async void workerThreadType2()
+        {
+            var taskTime = int.Parse(TaskTime);
+            var errorRate = int.Parse(ErrorRate);
+            await Task.Run(() =>
+            {
+                panelModels.ForEach(p =>
                 {
                     p.JobPending(taskTime);
                     p.JobRunning(taskTime, errorRate);
