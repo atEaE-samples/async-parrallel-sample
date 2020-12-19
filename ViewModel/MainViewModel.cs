@@ -159,8 +159,10 @@ namespace AsyncParrallelSample.ViewModel
             panelModels = Enumerable.Range(1, runTasks).Select(_ => new PanelViewModel(0, 0, 1, 1) { Height = 7, Width = 7 }).ToList();
             TaskSelectSource = new List<Command>()
             {
-                new Command("Sample1", workerThreadType1){ Description = "Description1" },
-                new Command("Sample2", workerThreadType2){ Description = "Description2" },
+                new Command("Sample1", workerThreadType1){ Description = "このサンプルは、各タスクを並列実行せず 『 ForEach 』 を使用して順番に実行するタスクです。" },
+                new Command("Sample2", workerThreadType2){ Description = "このサンプルは、各タスクを 『 AsParallel 』 を使用して、並列実行させるタスクです。" },
+                new Command("Sample3", workerThreadType3){ Description = "このサンプルは、各タスクを 『 AsParallel 』 を使用して並列実行させ、さらに処理1つ１つを非同期実行させるタスクです。" },
+                new Command("Sample4", workerThreadType4){ Description = "このサンプルは、各タスクを 『 AsParallel 』 を使用して並列実行させ、さらに処理全体を非同期実行させるタスクです。" },
             };
 
             currentSelectedWorkerDescription = TaskSelectSource[SelectedWorkerIndex].Description;
@@ -201,11 +203,50 @@ namespace AsyncParrallelSample.ViewModel
             var errorRate = int.Parse(ErrorRate);
             await Task.Run(() =>
             {
-                panelModels.AsParallel().ForAll((p) =>
+                Parallel.ForEach(panelModels, p =>
                 {
                     p.JobPending(taskTime);
                     p.JobRunning(taskTime, errorRate);
                     p.JobFinishing();
+                });
+            });
+        }
+
+        /// <summary>
+        /// AsParallel ForAll 
+        /// </summary>
+        private async void workerThreadType3()
+        {
+            var taskTime = int.Parse(TaskTime);
+            var errorRate = int.Parse(ErrorRate);
+            await Task.Run(() =>
+            {
+                Parallel.ForEach(panelModels, async p =>
+                {
+                    await Task.Run(() => p.JobPending(taskTime));
+                    await Task.Run(() => p.JobRunning(taskTime, errorRate));
+                    await Task.Run(() => p.JobFinishing());
+                });
+            });
+        }
+
+        /// <summary>
+        /// AsParallel ForAll 
+        /// </summary>
+        private async void workerThreadType4()
+        {
+            var taskTime = int.Parse(TaskTime);
+            var errorRate = int.Parse(ErrorRate);
+            await Task.Run(() =>
+            {
+                Parallel.ForEach(panelModels, async p =>
+                {
+                    await Task.Run(() =>
+                    {
+                        p.JobPending(taskTime);
+                        p.JobRunning(taskTime, errorRate);
+                        p.JobFinishing();
+                    });
                 });
             });
         }

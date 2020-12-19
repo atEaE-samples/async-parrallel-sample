@@ -47,7 +47,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtBox_CurrentTaskDescription = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -215,17 +215,17 @@
             this.label4.TabIndex = 18;
             this.label4.Text = "failed";
             // 
-            // textBox1
+            // txtBox_CurrentTaskDescription
             // 
-            this.textBox1.BackColor = System.Drawing.Color.White;
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox1.Enabled = false;
-            this.textBox1.ForeColor = System.Drawing.Color.Black;
-            this.textBox1.Location = new System.Drawing.Point(1, 228);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(303, 62);
-            this.textBox1.TabIndex = 19;
+            this.txtBox_CurrentTaskDescription.BackColor = System.Drawing.Color.White;
+            this.txtBox_CurrentTaskDescription.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtBox_CurrentTaskDescription.Enabled = false;
+            this.txtBox_CurrentTaskDescription.ForeColor = System.Drawing.Color.Black;
+            this.txtBox_CurrentTaskDescription.Location = new System.Drawing.Point(1, 228);
+            this.txtBox_CurrentTaskDescription.Multiline = true;
+            this.txtBox_CurrentTaskDescription.Name = "txtBox_CurrentTaskDescription";
+            this.txtBox_CurrentTaskDescription.Size = new System.Drawing.Size(303, 62);
+            this.txtBox_CurrentTaskDescription.TabIndex = 19;
             // 
             // label5
             // 
@@ -242,7 +242,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(306, 292);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtBox_CurrentTaskDescription);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -290,7 +290,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtBox_CurrentTaskDescription;
         private System.Windows.Forms.Label label5;
     }
 }
