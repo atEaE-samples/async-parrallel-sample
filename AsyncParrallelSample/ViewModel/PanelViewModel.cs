@@ -36,39 +36,23 @@ namespace AsyncParrallelSample.ViewModel
         /// <summary>
         /// Create new instance.
         /// </summary>
-        public PanelViewModel()
-        { }
-
-        /// <summary>
-        /// Create new instance.
-        /// </summary>
-        /// <param name="all">all</param>
-        public PanelViewModel(int all)
+        /// <param name="height">panel height</param>
+        /// <param name="width">panel width</param>
+        public PanelViewModel(int height, int width)
         {
-            Padding(all);
-        }
-
-        /// <summary>
-        /// Create new instance.
-        /// </summary>
-        /// <param name="left">left</param>
-        /// <param name="top">top</param>
-        /// <param name="right">right</param>
-        /// <param name="bottom">bottom</param>
-        public PanelViewModel(int left, int top, int right, int bottom)
-        {
-            Padding(left, top, right, bottom);
+            Height = height;
+            Width = width;
         }
 
         /// <summary>
         /// Panel height.
         /// </summary>
-        public int Height { get; set; }
+        public int Height { get; private set; }
         
         /// <summary>
         /// Panel width.
         /// </summary>
-        public int Width { get; set; }
+        public int Width { get; private set; }
 
         /// <summary>
         /// Padding top.
@@ -123,21 +107,24 @@ namespace AsyncParrallelSample.ViewModel
         /// <param name="top">top</param>
         /// <param name="right">right</param>
         /// <param name="bottom">bottom</param>
-        public void Padding(int left, int top, int right, int bottom)
+        /// <returns>PanelViewModel</returns>
+        public PanelViewModel Padding(int left, int top, int right, int bottom)
         {
             PaddingLeft = left;
             PaddingTop = top;
             PaddingRight = right;
             PaddingBottom = bottom;
+            return this;
         }
 
         /// <summary>
         /// Set padding.
         /// </summary>
         /// <param name="all">all</param>
-        public void Padding(int all)
+        /// <returns>PanelViewModel</returns>
+        public PanelViewModel Padding(int all)
         {
-            Padding(all, all, all, all);
+            return Padding(all, all, all, all);
         }
 
         /// <summary>

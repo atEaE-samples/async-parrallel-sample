@@ -3,7 +3,20 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30503.244
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncParrallelSample", "AsyncParrallelSample.csproj", "{A96B319F-59AB-4D9E-8F93-D86B9F8BECAC}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C0BB13E5-EB95-4272-9DE3-0CBA22CFBF5B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{8F1ED63C-D460-45EA-B19E-885C9AA910F6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncParrallelSample", "AsyncParrallelSample\AsyncParrallelSample.csproj", "{A96B319F-59AB-4D9E-8F93-D86B9F8BECAC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test_AsyncParrallelSample", "Test_AsyncParrallelSample\Test_AsyncParrallelSample.csproj", "{CA191E35-7A16-4CB3-96D5-BAFBA6585F1A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{3CC3127D-6148-4709-9A12-E34826EE5960}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +28,17 @@ Global
 		{A96B319F-59AB-4D9E-8F93-D86B9F8BECAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A96B319F-59AB-4D9E-8F93-D86B9F8BECAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A96B319F-59AB-4D9E-8F93-D86B9F8BECAC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA191E35-7A16-4CB3-96D5-BAFBA6585F1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA191E35-7A16-4CB3-96D5-BAFBA6585F1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA191E35-7A16-4CB3-96D5-BAFBA6585F1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA191E35-7A16-4CB3-96D5-BAFBA6585F1A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A96B319F-59AB-4D9E-8F93-D86B9F8BECAC} = {C0BB13E5-EB95-4272-9DE3-0CBA22CFBF5B}
+		{CA191E35-7A16-4CB3-96D5-BAFBA6585F1A} = {8F1ED63C-D460-45EA-B19E-885C9AA910F6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {72FC7B17-0853-45AB-8036-26B43D923B34}
