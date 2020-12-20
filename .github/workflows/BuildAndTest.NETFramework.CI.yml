@@ -1,0 +1,43 @@
+name: BuildAndTest.NETFramework.CI
+
+on:
+  push:
+    branches:
+      - master
+      - "develop/**"
+      - "feature/**"
+      - "hotfix/**"
+    pull_request:
+      - master
+      - "develop/**"
+      - "hotfix/**"
+      - "feature/**"
+
+# ワークフローの実行は、順次または並列に実行できる1つ以上のジョブから構成してください。
+jobs:
+  build:
+    runs-on: windows-latest
+    env:
+      APP_BUILD_PATH: AsyncParrallelSample.sln
+      ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Nuget
+        uses: nuget/setup-nuget@v1
+
+      - name: Restore package
+        run: nuget restore $env:APP_BUILD_PATH
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1.0.1
+
+      - name: Run Build
+        run: msbuild $env:APP_BUILD_PATH -p:Configuration=Release
+
+      - name: Setup vstest
+        uses: darenm/Setup-VSTest@v1
+
+      - name: Run Test
+        run: vstest.console.exe /Platform:AnyCPU Test_**\bin\Release\Test_**.dll
