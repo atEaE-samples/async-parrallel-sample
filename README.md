@@ -1,4 +1,7 @@
 # Async Parrallel Sample
+![GitHub](https://img.shields.io/github/license/atEaE-samples/async-parrallel-sample)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/atEaE-samples/async-parrallel-sample/BuildAndTest.NETFramework.CI)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/atEaE-samples/async-parrallel-sample)  
 This is a sample source code to check asynchronous and parallel processing.  
 It was created based on [this article](https://qiita.com/longlongago_k/items/8f19d84fce6dd677922e), but I have not checked the actual source code, so it differs from the article.
 
