@@ -1,9 +1,23 @@
-# Async Parrallel Sample
+# Async Parallel Sample
 ![GitHub](https://img.shields.io/github/license/atEaE-samples/async-parrallel-sample)
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/atEaE-samples/async-parrallel-sample/BuildAndTest.NETFramework.CI)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/atEaE-samples/async-parrallel-sample)  
 This is a sample source code to check asynchronous and parallel processing.  
 It was created based on [this article](https://qiita.com/longlongago_k/items/8f19d84fce6dd677922e), but I have not checked the actual source code, so it differs from the article.
+
+## Demo
+### Foreach pattern
+![foreach](./docs/imgs/foreach.png)
+
+### Parallel For pattern
+![parallel](./docs/imgs/parallel.png)
+
+### Parallel And Task(part) pattern
+![parallel-task-p](./docs/imgs/parallel-task-part.png)
+
+### Parallel And Task(all) pattern
+![parallel-task-a](./docs/imgs/parallel-task-all.png)
+
 
 ## Contributing
 Pull requests and stars are always welcome. Contributions are what make the open source community such an amazing place to be learn, inspire, and create.
