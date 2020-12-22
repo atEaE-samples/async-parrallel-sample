@@ -68,6 +68,19 @@ namespace AsyncParrallelSample.View
         /// <summary>
         /// data binding.
         /// </summary>
+        /// <typeparam name="T">biding object</typeparam>
+        /// <param name="button">Button</param>
+        /// <param name="propertyName">Controller propertyName</param>
+        /// <param name="bindObject">Binding object</param>
+        /// <param name="bindPropertyName">Binding object propertyName</param>
+        public static void Bind<T>(this Button button, string propertyName, T bindObject, string bindPropertyName)
+        {
+            bindModel(button, propertyName, bindObject, bindPropertyName);
+        }
+
+        /// <summary>
+        /// data binding.
+        /// </summary>
         /// <param name="button">Button</param>
         /// <param name="command">bind command.</param>
         public static void Bind(this Button button, Command command)

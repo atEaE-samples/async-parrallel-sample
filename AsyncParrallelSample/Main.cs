@@ -51,7 +51,10 @@ namespace AsyncParrallelSample
         protected void BindComponent()
         {
             // button
-            btn_Start.Bind(viewModel.StartCommand);
+            btn_Run.Bind(viewModel.RunCommand);
+            btn_Run.Bind(nameof(Button.Enabled), viewModel, nameof(MainViewModel.RunButtonEnabled));
+            btn_Clear.Bind(viewModel.ClearCommand);
+            btn_Clear.Bind(nameof(Button.Enabled), viewModel, nameof(MainViewModel.ClearButtonEnabled));
 
             // combobox
             cmb_TaskSelectBox.DataSource = viewModel.TaskSelectSource;

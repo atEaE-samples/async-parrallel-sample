@@ -50,6 +50,16 @@ namespace AsyncParrallelSample.ViewModel
         }
 
         /// <summary>
+        /// Lockable resource.
+        /// </summary>
+        private object syncObject = new object();
+
+        /// <summary>
+        /// Completed task count
+        /// </summary>
+        private int completedTaskCount = 0;
+
+        /// <summary>
         /// tasktime minsec.
         /// </summary>
         private string taskTime = "300";
@@ -87,6 +97,46 @@ namespace AsyncParrallelSample.ViewModel
                     return;
                 errorRate = value;
                 NotifyPropertyChanged(nameof(ErrorRate));
+            }
+        }
+
+        /// <summary>
+        /// run button enabled.
+        /// </summary>
+        private bool runButtonEnabled = true;
+
+        /// <summary>
+        /// Run button enabled public..
+        /// </summary>
+        public bool RunButtonEnabled
+        {
+            get => runButtonEnabled;
+            set
+            {
+                if (runButtonEnabled == value)
+                    return;
+                runButtonEnabled = value;
+                NotifyPropertyChanged(nameof(RunButtonEnabled));
+            }
+        }
+
+        /// <summary>
+        /// clear button enabled.
+        /// </summary>
+        private bool clearButtonEnabled = true;
+
+        /// <summary>
+        /// Clear button enabled public..
+        /// </summary>
+        public bool ClearButtonEnabled
+        {
+            get => clearButtonEnabled;
+            set
+            {
+                if (clearButtonEnabled == value)
+                    return;
+                clearButtonEnabled = value;
+                NotifyPropertyChanged(nameof(ClearButtonEnabled));
             }
         }
 
@@ -146,9 +196,14 @@ namespace AsyncParrallelSample.ViewModel
         }
 
         /// <summary>
-        /// start button command.
+        /// run button command.
         /// </summary>
-        public Command StartCommand { get; private set; }
+        public Command RunCommand { get; private set; }
+
+        /// <summary>
+        /// clear button command.
+        /// </summary>
+        public Command ClearCommand { get; private set; }
 
         /// <summary>
         /// Create new instance.
@@ -167,13 +222,43 @@ namespace AsyncParrallelSample.ViewModel
 
             currentSelectedWorkerDescription = TaskSelectSource[SelectedWorkerIndex].Description;
 
-            StartCommand = new Command(onStart);
+            RunCommand = new Command(onRun);
+            ClearCommand = new Command(onClear);
         }
 
-        private void onStart()
+        /// <summary>
+        /// Run command function.
+        /// </summary>
+        private void onRun()
         {
+            RunButtonEnabled = false;
             var cmd = TaskSelectSource[SelectedWorkerIndex];
             cmd.Execute();
+        }
+
+        /// <summary>
+        /// Clear command function.
+        /// </summary>
+        private async void onClear()
+        {
+            ClearButtonEnabled = false;
+
+            var runTasks = int.Parse(RunTasks);
+            if (completedTaskCount == runTasks)
+            {
+                await Task.Run(() =>
+                {
+                    Parallel.ForEach(PanelViewModels, p =>
+                    {
+                        Task.Run(() => p.Reset());
+                    });
+
+                });
+                completedTaskCount = 0;
+                RunButtonEnabled = true;
+            }
+
+            ClearButtonEnabled = true;
         }
 
         /// <summary>
@@ -183,6 +268,7 @@ namespace AsyncParrallelSample.ViewModel
         {
             var taskTime = int.Parse(TaskTime);
             var errorRate = int.Parse(ErrorRate);
+
             await Task.Run(() =>
             {
                 panelModels.ForEach(p =>
@@ -190,6 +276,12 @@ namespace AsyncParrallelSample.ViewModel
                     p.JobPending(taskTime);
                     p.JobRunning(taskTime, errorRate);
                     p.JobFinishing();
+
+                    // lock and critical section
+                    lock(syncObject)
+                    {
+                        completedTaskCount += 1;
+                    }
                 });
             });
         }
@@ -201,6 +293,7 @@ namespace AsyncParrallelSample.ViewModel
         {
             var taskTime = int.Parse(TaskTime);
             var errorRate = int.Parse(ErrorRate);
+
             await Task.Run(() =>
             {
                 Parallel.ForEach(panelModels, p =>
@@ -208,6 +301,12 @@ namespace AsyncParrallelSample.ViewModel
                     p.JobPending(taskTime);
                     p.JobRunning(taskTime, errorRate);
                     p.JobFinishing();
+
+                    // lock and critical section
+                    lock (syncObject)
+                    {
+                        completedTaskCount += 1;
+                    }
                 });
             });
         }
@@ -217,8 +316,10 @@ namespace AsyncParrallelSample.ViewModel
         /// </summary>
         private async void workerThreadType3()
         {
+            
             var taskTime = int.Parse(TaskTime);
             var errorRate = int.Parse(ErrorRate);
+
             await Task.Run(() =>
             {
                 Parallel.ForEach(panelModels, async p =>
@@ -226,6 +327,12 @@ namespace AsyncParrallelSample.ViewModel
                     await Task.Run(() => p.JobPending(taskTime));
                     await Task.Run(() => p.JobRunning(taskTime, errorRate));
                     await Task.Run(() => p.JobFinishing());
+
+                    // lock and critical section
+                    lock (syncObject)
+                    {
+                        completedTaskCount += 1;
+                    }
                 });
             });
         }
@@ -246,6 +353,12 @@ namespace AsyncParrallelSample.ViewModel
                         p.JobPending(taskTime);
                         p.JobRunning(taskTime, errorRate);
                         p.JobFinishing();
+
+                        // lock and critical section
+                        lock (syncObject)
+                        {
+                            completedTaskCount += 1;
+                        }
                     });
                 });
             });

@@ -165,5 +165,13 @@ namespace AsyncParrallelSample.ViewModel
                 Color = Color.Lime;
             }
         }
+
+        /// <summary>
+        /// reset panel.
+        /// </summary>
+        public void Reset()
+        {
+            Color = Color.LightGray;
+        }
     }
 }

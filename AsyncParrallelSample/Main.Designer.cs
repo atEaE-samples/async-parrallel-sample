@@ -30,7 +30,7 @@
         {
             this.txtBox_RunTasks = new System.Windows.Forms.TextBox();
             this.txtBox_TaskTime = new System.Windows.Forms.TextBox();
-            this.btn_Start = new System.Windows.Forms.Button();
+            this.btn_Run = new System.Windows.Forms.Button();
             this.flowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.cmb_TaskSelectBox = new System.Windows.Forms.ComboBox();
             this.lbl_RunTask = new System.Windows.Forms.Label();
@@ -49,6 +49,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.txtBox_CurrentTaskDescription = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.btn_Clear = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtBox_RunTasks
@@ -66,14 +67,14 @@
             this.txtBox_TaskTime.Size = new System.Drawing.Size(35, 19);
             this.txtBox_TaskTime.TabIndex = 1;
             // 
-            // btn_Start
+            // btn_Run
             // 
-            this.btn_Start.Location = new System.Drawing.Point(1, 4);
-            this.btn_Start.Name = "btn_Start";
-            this.btn_Start.Size = new System.Drawing.Size(75, 23);
-            this.btn_Start.TabIndex = 2;
-            this.btn_Start.Text = "Start";
-            this.btn_Start.UseVisualStyleBackColor = true;
+            this.btn_Run.Location = new System.Drawing.Point(1, 4);
+            this.btn_Run.Name = "btn_Run";
+            this.btn_Run.Size = new System.Drawing.Size(34, 23);
+            this.btn_Run.TabIndex = 2;
+            this.btn_Run.Text = "Run";
+            this.btn_Run.UseVisualStyleBackColor = true;
             // 
             // flowLayoutPanel
             // 
@@ -236,11 +237,21 @@
             this.label5.TabIndex = 20;
             this.label5.Text = "Task description";
             // 
+            // btn_Clear
+            // 
+            this.btn_Clear.Location = new System.Drawing.Point(41, 4);
+            this.btn_Clear.Name = "btn_Clear";
+            this.btn_Clear.Size = new System.Drawing.Size(36, 23);
+            this.btn_Clear.TabIndex = 21;
+            this.btn_Clear.Text = "Clr";
+            this.btn_Clear.UseVisualStyleBackColor = true;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(306, 292);
+            this.Controls.Add(this.btn_Clear);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.txtBox_CurrentTaskDescription);
             this.Controls.Add(this.label4);
@@ -259,11 +270,11 @@
             this.Controls.Add(this.lbl_RunTask);
             this.Controls.Add(this.cmb_TaskSelectBox);
             this.Controls.Add(this.flowLayoutPanel);
-            this.Controls.Add(this.btn_Start);
+            this.Controls.Add(this.btn_Run);
             this.Controls.Add(this.txtBox_TaskTime);
             this.Controls.Add(this.txtBox_RunTasks);
             this.Name = "Main";
-            this.Text = "Async Parrallel Sample App";
+            this.Text = "Async Parrallel Sample";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -273,7 +284,7 @@
 
         private System.Windows.Forms.TextBox txtBox_RunTasks;
         private System.Windows.Forms.TextBox txtBox_TaskTime;
-        private System.Windows.Forms.Button btn_Start;
+        private System.Windows.Forms.Button btn_Run;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel;
         private System.Windows.Forms.ComboBox cmb_TaskSelectBox;
         private System.Windows.Forms.Label lbl_RunTask;
@@ -292,6 +303,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtBox_CurrentTaskDescription;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button btn_Clear;
     }
 }
 
